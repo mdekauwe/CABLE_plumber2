@@ -59,6 +59,7 @@ met_dir = None
 #
 sci_config = {
                 "cable_user%GS_SWITCH": "'medlyn'",
+                "delsoilM": "0.01",
 }
 
 #
