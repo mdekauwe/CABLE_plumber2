@@ -66,8 +66,8 @@ sci_config = {
 #
 ## MPI stuff
 #
-mpi = False
-num_cores = 4
+mpi = True
+num_cores = 8
 
 # ------------------------------------------- #
 
