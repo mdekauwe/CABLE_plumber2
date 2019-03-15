@@ -58,7 +58,6 @@ met_dir = None
 ## science config
 #
 sci_config = {
-                "cable_user%GS_SWITCH": "'medlyn'",
                 "delsoilM": "0.01",
                 "delsoilT": "0.1",
 }
@@ -71,12 +70,10 @@ num_cores = 8
 
 # ------------------------------------------- #
 
-"""
 # clean out old src directory
 if os.path.exists(src_dir):
     shutil.rmtree(src_dir)
     os.makedirs(src_dir)
-
 
 #
 ## Get CABLE ...
@@ -98,7 +95,6 @@ else:
 B = BuildCable(src_dir=src_dir, NCDIR=NCDIR, NCMOD=NCMOD, FC=FC,
                CFLAGS=CFLAGS, LD=LD, LDFLAGS=LDFLAGS)
 B.main(repo_name=repo)
-"""
 
 repo = "Trunk"
 
@@ -116,6 +112,6 @@ R = RunCable(met_dir=met_dir, log_dir=log_dir,
              output_dir=output_dir, restart_dir=restart_dir,
              aux_dir=aux_dir, namelist_dir=namelist_dir,
              met_subset=met_subset, cable_src=cable_src, mpi=mpi,
-             num_cores=num_cores)
+             num_cores=num_cores, verbose=True)
 R.main(sci_config)
 os.chdir(cwd)

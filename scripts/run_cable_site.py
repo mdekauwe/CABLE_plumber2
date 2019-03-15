@@ -101,6 +101,9 @@ class RunCable(object):
 
         for fname in met_files:
             site = os.path.basename(fname).split(".")[0]
+
+            print(site)
+            sys.exit()
             
             base_nml_fn = os.path.join(self.grid_dir, "%s" % (self.nml_fname))
             nml_fname = "cable_%s.nml" % (site)
@@ -127,8 +130,11 @@ class RunCable(object):
                             "casafile%phen": "'%s'" % (self.phen_fname),
                             "casafile%cnpbiome": "'%s'" % (self.cnpbiome_fname),
                             "cable_user%FWSOIL_SWITCH": "'Haverd2013'",
+                            "cable_user%GS_SWITCH": "'medlyn'",
             }
-            replace_dict = merge_two_dicts(replace_dict, sci_config)
+            # Make sure the dict isn't empty
+            if bool(sci_config):
+                replace_dict = merge_two_dicts(replace_dict, sci_config)
             adjust_nml_file(nml_fname, replace_dict)
 
             self.run_me(nml_fname)
