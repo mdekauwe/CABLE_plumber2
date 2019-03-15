@@ -45,7 +45,7 @@ user_path = None
 #
 ## Met files ...
 #
-met_subset = []
+met_subset = ["SynthMetS200PregularL0.8TSt260293260Q5C550W20VgLAISi03.nc"]
 met_dir = None
 
 #
@@ -65,38 +65,42 @@ sci_config = {
 #
 ## MPI stuff
 #
-mpi = True
+mpi = False
 num_cores = 8
+
+get_src = False
 
 # ------------------------------------------- #
 
-# clean out old src directory
-if os.path.exists(src_dir):
-    shutil.rmtree(src_dir)
-    os.makedirs(src_dir)
+if get_src:
+    # clean out old src directory
+    if os.path.exists(src_dir):
+        shutil.rmtree(src_dir)
+        os.makedirs(src_dir)
 
-#
-## Get CABLE ...
-#
-G = GetCable(src_dir=src_dir, user=user)
+    #
+    ## Get CABLE ...
+    #
+    G = GetCable(src_dir=src_dir, user=user)
 
-if user_path is None:
-    # Setup for the head of the trunk
-    repo = "Trunk"
-    G.main(repo_name=repo, trunk=True)
+    if user_path is None:
+        # Setup for the head of the trunk
+        repo = "Trunk"
+        G.main(repo_name=repo, trunk=True)
+    else:
+        # Setup for user specified path
+        repo = os.path.basename(user_path)
+        G.main(repo_name=user_path, trunk=False)
+
+    #
+    ## Build CABLE ...
+    #
+    B = BuildCable(src_dir=src_dir, NCDIR=NCDIR, NCMOD=NCMOD, FC=FC,
+                   CFLAGS=CFLAGS, LD=LD, LDFLAGS=LDFLAGS)
+    B.main(repo_name=repo)
+
 else:
-    # Setup for user specified path
-    repo = os.path.basename(user_path)
-    G.main(repo_name=user_path, trunk=False)
-
-#
-## Build CABLE ...
-#
-B = BuildCable(src_dir=src_dir, NCDIR=NCDIR, NCMOD=NCMOD, FC=FC,
-               CFLAGS=CFLAGS, LD=LD, LDFLAGS=LDFLAGS)
-B.main(repo_name=repo)
-
-repo = "Trunk"
+    repo = "Trunk"
 
 #
 ## Run CABLE for test case
