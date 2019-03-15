@@ -100,11 +100,8 @@ class RunCable(object):
     def worker(self, met_files, url, rev, sci_config):
 
         for fname in met_files:
-            site = os.path.basename(fname).split(".")[0]
+            site = os.path.basename(fname)[:-3]#.split(".")
 
-            print(site)
-            sys.exit()
-            
             base_nml_fn = os.path.join(self.grid_dir, "%s" % (self.nml_fname))
             nml_fname = "cable_%s.nml" % (site)
             shutil.copy(base_nml_fn, nml_fname)
