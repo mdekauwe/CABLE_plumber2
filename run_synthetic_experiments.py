@@ -45,7 +45,7 @@ user_path = None
 #
 ## Met files ...
 #
-met_subset = ["SynthMetS200PregularL0.8TSt260293260Q5C550W20VgLAISi03.nc"]
+met_subset = ["SynthMetS1200PregularL8TSt260293260Q5C550WSt021020VtLAI6.nc"]
 met_dir = None
 
 #
